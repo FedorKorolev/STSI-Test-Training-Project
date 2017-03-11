@@ -28,7 +28,7 @@ class QuestViewController: UIViewController {
 
     // Actions
     @IBAction func next(_ sender: UIBarButtonItem) {
-        reverseTableAnimation = false
+        animationIsReverse = false
         guard currentQuestionIndex < questionList.count else {
             print("Больше нет вопросов")
             return
@@ -38,7 +38,7 @@ class QuestViewController: UIViewController {
     }
     
     @IBAction func previous(_ sender: UIBarButtonItem) {
-        reverseTableAnimation = true
+        animationIsReverse = true
         guard currentQuestionIndex > 0 else {
             print("Вернулись на начало")
             return
@@ -76,10 +76,11 @@ class QuestViewController: UIViewController {
             updateViews()
         }
     }
-    var reverseTableAnimation = false
+    var animationIsReverse = false
     
     // Update Views
     private func updateViews() {
+        
         // load image
         if let realURL = currentQuestion?.imageURL,
             let checkedUrl = URL(string: realURL) {
@@ -90,11 +91,14 @@ class QuestViewController: UIViewController {
         }
         
         // update label
-        questionLabel.text = currentQuestion?.question
+            questionLabel.pushTransition(duration: 0.4, reverse: animationIsReverse)
+            
+            questionLabel.text = currentQuestion?.question
+        
         
         // reload tableView
         let sectionsToReload = IndexSet(integer: 0)
-        self.tableView.reloadSections(sectionsToReload, with: reverseTableAnimation ? .right : .left)
+        self.tableView.reloadSections(sectionsToReload, with: animationIsReverse ? .right : .left)
     }
     
     
@@ -142,4 +146,21 @@ extension QuestViewController: UITableViewDataSource {
 // Handle selection
 extension QuestViewController: UITableViewDelegate {
     
+}
+
+// Add text change animation
+extension UIView {
+    func pushTransition(duration: CFTimeInterval, reverse: Bool) {
+        let animation:CATransition = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name:
+            kCAMediaTimingFunctionEaseInEaseOut)
+        animation.type = kCATransitionPush
+        if reverse {
+            animation.subtype = kCATransitionFromLeft
+        } else {
+            animation.subtype = kCATransitionFromRight
+        }
+        animation.duration = duration
+        layer.add(animation, forKey: kCATransitionPush)
+    }
 }
