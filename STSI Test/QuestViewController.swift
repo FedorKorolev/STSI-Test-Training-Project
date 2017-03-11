@@ -10,35 +10,68 @@ import UIKit
 
 class QuestViewController: UIViewController {
 
+    // Initialisation
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loadData(variant: 0)
         
-        if let realURL = questionList[1].imageURL,
-           let checkedUrl = URL(string: realURL) {
-            downloadImage(url: checkedUrl)
-        }
+        tableView.dataSource = self
+        tableView.delegate = self
+        loadData(variant: 0)
         
     }
 
+    var isOnScreen: Bool {
+        return isViewLoaded && view.window != nil
+    }
+    
     // Outlets
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    //Questions Data
+    // Questions Data
     var questionList = [Question]()
     
     private func loadData(variant: Int) {
         let loader = QuestionsLoader()
+        self.questionList = loader.loadData(variant: variant)
         
-        self.questionList = loader.loadData(variant: 0)
+        currentQuestionIndex = 0
+        currentQuestion = questionList[0]
         
-        questionLabel.text = questionList[0].question
+        questionLabel.text = currentQuestion?.question
+        
+        updateViews()
     }
     
-    //Image Download
+    // Current State
+    var currentQuestionIndex = 0
+    var currentQuestion: Question? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    // Update Views
+    private func updateViews() {
+        // load image
+        if let realURL = currentQuestion?.imageURL,
+            let checkedUrl = URL(string: realURL) {
+            downloadImage(url: checkedUrl)
+        }
+        
+        // load tableView
+        
+        
+//        let sectionsToReload = IndexSet(integer: 0)
+//        self.tableView.reloadSections(sectionsToReload, with: isOnScreen ? .automatic : .none)
+    }
+    
+    
+    
+    
+    
+    // Image Download
     func getDataFromUrl(url: URL, completion: @escaping (_ data: Data?, _  response: URLResponse?, _ error: Error?) -> Void) {
         URLSession.shared.dataTask(with: url) {
             (data, response, error) in
@@ -57,5 +90,25 @@ class QuestViewController: UIViewController {
         }
     }
     
+    
+}
+
+
+// Setup tableView
+extension QuestViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return currentQuestion?.answers.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = currentQuestion?.answers[indexPath.row]
+        return cell
+    }
+}
+
+
+extension QuestViewController: UITableViewDelegate {
     
 }
