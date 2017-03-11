@@ -30,7 +30,7 @@
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="53Z-Xe-aNF">
-                                <rect key="frame" x="16" y="227" width="288" height="321"/>
+                                <rect key="frame" x="16" y="227" width="288" height="297"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="xPc-lt-NYQ" style="IBUITableViewCellStyleDefault" id="K9x-79-kHA">
@@ -58,23 +58,37 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FYC-jc-HpG">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <items>
+                                    <barButtonItem title="◀" id="oqi-EG-lmS" userLabel="Previous"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="bvQ-7B-Pt7"/>
+                                    <barButtonItem title="Проверить ответ" id="p60-Qo-hlI"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Sje-JJ-ogS"/>
+                                    <barButtonItem title="▶" id="kxB-6n-a4q" userLabel="Next"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="53Z-Xe-aNF" firstAttribute="top" secondItem="avp-Zi-lMQ" secondAttribute="bottom" constant="8" id="0Oc-Om-wIG"/>
                             <constraint firstItem="avp-Zi-lMQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="DZa-hS-tHe"/>
+                            <constraint firstItem="FYC-jc-HpG" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="PJo-mI-AU4"/>
                             <constraint firstItem="53Z-Xe-aNF" firstAttribute="leading" secondItem="avp-Zi-lMQ" secondAttribute="leading" id="UGc-mY-fXV"/>
                             <constraint firstItem="avp-Zi-lMQ" firstAttribute="top" secondItem="5Rg-RR-Sef" secondAttribute="bottom" constant="8" id="XOp-a9-UJC"/>
                             <constraint firstItem="avp-Zi-lMQ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Z1w-eQ-gGb"/>
                             <constraint firstItem="5Rg-RR-Sef" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="aV7-3w-2zY"/>
                             <constraint firstItem="5Rg-RR-Sef" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="bhz-ML-fnM"/>
-                            <constraint firstAttribute="bottom" secondItem="53Z-Xe-aNF" secondAttribute="bottom" constant="20" symbolic="YES" id="gS9-2V-Vrd"/>
+                            <constraint firstItem="FYC-jc-HpG" firstAttribute="centerX" secondItem="53Z-Xe-aNF" secondAttribute="centerX" id="jug-RR-8SP"/>
                             <constraint firstItem="5Rg-RR-Sef" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="seL-OV-yKg"/>
+                            <constraint firstItem="FYC-jc-HpG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="wAk-WH-rgE"/>
+                            <constraint firstItem="FYC-jc-HpG" firstAttribute="top" secondItem="53Z-Xe-aNF" secondAttribute="bottom" id="zMe-OV-pj5"/>
                             <constraint firstItem="53Z-Xe-aNF" firstAttribute="trailing" secondItem="avp-Zi-lMQ" secondAttribute="trailing" id="zUN-pu-De4"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="5Rg-RR-Sef" id="Aq7-6i-T89"/>
+                        <outlet property="previous" destination="oqi-EG-lmS" id="f9l-ed-Oeo"/>
                         <outlet property="questionLabel" destination="avp-Zi-lMQ" id="6hQ-C6-TlV"/>
                         <outlet property="tableView" destination="53Z-Xe-aNF" id="FNS-CL-6Eu"/>
                     </connections>

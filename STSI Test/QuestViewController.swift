@@ -16,6 +16,7 @@ class QuestViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        
         loadData(variant: 0)
         
     }
@@ -29,9 +30,13 @@ class QuestViewController: UIViewController {
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var previous: UIBarButtonItem!
+    
     // Questions Data
     var questionList = [Question]()
     
+    
+    //Load Data and Setup tableView
     private func loadData(variant: Int) {
         let loader = QuestionsLoader()
         self.questionList = loader.loadData(variant: variant)
@@ -112,7 +117,7 @@ extension QuestViewController: UITableViewDataSource {
     
 }
 
-
+// Handle selection
 extension QuestViewController: UITableViewDelegate {
     
 }
