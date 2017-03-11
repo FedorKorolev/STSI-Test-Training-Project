@@ -10,27 +10,18 @@ import UIKit
 
 struct Question {
     
-    // Properties
     let question: String
     let answers: [String]
     private let correctAnswer: Int
     let comments: String
+    var imageURL: String?
     
-    // Image
-    let imageDownloader = ImageDownloader()
-    let imageURL: String?
-//    var image: UIImage = imageDownloader.downloadImage(url: imageURL)
-    
+
     init(json: [String : Any]) {
         self.question = json["quest"] as! String
         self.correctAnswer = json["otvet"] as! Int
         self.comments = json["comments"] as! String
-        
-        if let imageURL = json["realUrl"] as? String {
-            self.imageURL = imageURL
-        } else {
-            self.imageURL = nil
-        }
+        self.imageURL = json["realUrl"] as? String
         
         let answersAndNils = json["v"] as! [Any]
         var answers = [String]()
@@ -40,6 +31,7 @@ struct Question {
             }
         }
         self.answers = answers
+        
     }
     
     

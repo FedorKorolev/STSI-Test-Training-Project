@@ -19,7 +19,7 @@ struct ImageDownloader {
     
     func downloadImage(url: URL) -> UIImage {
         var image = UIImage()
-        print("Download Started")
+        print("Download Started. URL: \(url)")
         getDataFromUrl(url: url) { (data, response, error)  in
             guard let data = data, error == nil else { return }
             print(response?.suggestedFilename ?? url.lastPathComponent)
@@ -28,6 +28,7 @@ struct ImageDownloader {
                 image = UIImage(data: data)!
             }
         }
+        print(image)
         return image
     }
 }

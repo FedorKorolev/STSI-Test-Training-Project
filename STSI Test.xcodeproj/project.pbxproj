@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75690DC91E7493F8003D75F3 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75690DC81E7493F8003D75F3 /* ImageDownloader.swift */; };
 		75D7A5BF1E746B68009422C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7A5BE1E746B68009422C4 /* AppDelegate.swift */; };
 		75D7A5C41E746B68009422C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75D7A5C21E746B68009422C4 /* Main.storyboard */; };
 		75D7A5C61E746B68009422C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75D7A5C51E746B68009422C4 /* Assets.xcassets */; };
 		75D7A5C91E746B68009422C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75D7A5C71E746B68009422C4 /* LaunchScreen.storyboard */; };
 		75D7A5D11E746C12009422C4 /* QuestionsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7A5D01E746C12009422C4 /* QuestionsLoader.swift */; };
 		75D7A5D31E746DA2009422C4 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7A5D21E746DA2009422C4 /* Question.swift */; };
-		75D7A5D71E747385009422C4 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7A5D61E747385009422C4 /* ImageDownloader.swift */; };
 		75D7A5D91E74785F009422C4 /* quiestions1-10.json in Resources */ = {isa = PBXBuildFile; fileRef = 75D7A5D81E74785F009422C4 /* quiestions1-10.json */; };
 		75D7A5DB1E748142009422C4 /* QuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7A5DA1E748142009422C4 /* QuestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		75690DC81E7493F8003D75F3 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		75D7A5BB1E746B68009422C4 /* STSI Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "STSI Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D7A5BE1E746B68009422C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75D7A5C31E746B68009422C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -27,7 +28,6 @@
 		75D7A5CA1E746B68009422C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75D7A5D01E746C12009422C4 /* QuestionsLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsLoader.swift; sourceTree = "<group>"; };
 		75D7A5D21E746DA2009422C4 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
-		75D7A5D61E747385009422C4 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		75D7A5D81E74785F009422C4 /* quiestions1-10.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "quiestions1-10.json"; sourceTree = "<group>"; };
 		75D7A5DA1E748142009422C4 /* QuestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				75D7A5C21E746B68009422C4 /* Main.storyboard */,
+				75690DC81E7493F8003D75F3 /* ImageDownloader.swift */,
 				75D7A5DA1E748142009422C4 /* QuestViewController.swift */,
 				75D7A5D41E746DB6009422C4 /* Models */,
 				75D7A5BE1E746B68009422C4 /* AppDelegate.swift */,
@@ -77,7 +78,6 @@
 		75D7A5D41E746DB6009422C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				75D7A5D61E747385009422C4 /* ImageDownloader.swift */,
 				75D7A5D21E746DA2009422C4 /* Question.swift */,
 				75D7A5D01E746C12009422C4 /* QuestionsLoader.swift */,
 			);
@@ -157,8 +157,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75D7A5D71E747385009422C4 /* ImageDownloader.swift in Sources */,
 				75D7A5D31E746DA2009422C4 /* Question.swift in Sources */,
+				75690DC91E7493F8003D75F3 /* ImageDownloader.swift in Sources */,
 				75D7A5DB1E748142009422C4 /* QuestViewController.swift in Sources */,
 				75D7A5BF1E746B68009422C4 /* AppDelegate.swift in Sources */,
 				75D7A5D11E746C12009422C4 /* QuestionsLoader.swift in Sources */,
