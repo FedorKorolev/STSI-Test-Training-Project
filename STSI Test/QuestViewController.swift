@@ -32,6 +32,9 @@ class QuestViewController: UIViewController {
     
     @IBOutlet weak var previous: UIBarButtonItem!
     
+    @IBOutlet weak var collapseImage: NSLayoutConstraint!
+    
+    
     // Questions Data
     var questionList = [Question]()
     
@@ -66,8 +69,9 @@ class QuestViewController: UIViewController {
         if let realURL = currentQuestion?.imageURL,
             let checkedUrl = URL(string: realURL) {
             downloadImage(url: checkedUrl)
+        } else {
+            collapseImage.priority = 999
         }
-        
         // load tableView
         
         
