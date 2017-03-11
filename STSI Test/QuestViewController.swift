@@ -20,19 +20,33 @@ class QuestViewController: UIViewController {
         loadData(variant: 0)
         
     }
-
-    var isOnScreen: Bool {
-        return isViewLoaded && view.window != nil
-    }
     
     // Outlets
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+
+    // Actions
+    @IBAction func next(_ sender: UIBarButtonItem) {
+        reverseTableAnimation = false
+        guard currentQuestionIndex < questionList.count else {
+            print("Больше нет вопросов")
+            return
+        }
+        currentQuestionIndex += 1
+        currentQuestion = questionList[currentQuestionIndex]
+    }
     
-    @IBOutlet weak var previous: UIBarButtonItem!
-    
-    @IBOutlet weak var collapseImage: NSLayoutConstraint!
+    @IBAction func previous(_ sender: UIBarButtonItem) {
+        reverseTableAnimation = true
+        guard currentQuestionIndex > 0 else {
+            print("Вернулись на начало")
+            return
+        }
+        currentQuestionIndex -= 1
+        currentQuestion = questionList[currentQuestionIndex]
+        
+    }
     
     
     // Questions Data
@@ -62,6 +76,7 @@ class QuestViewController: UIViewController {
             updateViews()
         }
     }
+    var reverseTableAnimation = false
     
     // Update Views
     private func updateViews() {
@@ -69,14 +84,17 @@ class QuestViewController: UIViewController {
         if let realURL = currentQuestion?.imageURL,
             let checkedUrl = URL(string: realURL) {
             downloadImage(url: checkedUrl)
+            imageView.isHidden = false
         } else {
-            collapseImage.priority = 999
+            imageView.isHidden = true
         }
-        // load tableView
         
+        // update label
+        questionLabel.text = currentQuestion?.question
         
-//        let sectionsToReload = IndexSet(integer: 0)
-//        self.tableView.reloadSections(sectionsToReload, with: isOnScreen ? .automatic : .none)
+        // reload tableView
+        let sectionsToReload = IndexSet(integer: 0)
+        self.tableView.reloadSections(sectionsToReload, with: reverseTableAnimation ? .right : .left)
     }
     
     

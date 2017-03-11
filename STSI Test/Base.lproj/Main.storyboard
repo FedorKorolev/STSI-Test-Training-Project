@@ -58,20 +58,27 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FYC-jc-HpG">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <items>
-                                    <barButtonItem title="◀" id="oqi-EG-lmS" userLabel="Previous"/>
+                                    <barButtonItem title="◀" id="oqi-EG-lmS" userLabel="Previous">
+                                        <connections>
+                                            <action selector="previous:" destination="BYZ-38-t0r" id="NOc-6j-haD"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="bvQ-7B-Pt7"/>
                                     <barButtonItem title="Проверить ответ" id="p60-Qo-hlI"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Sje-JJ-ogS"/>
-                                    <barButtonItem title="▶" id="kxB-6n-a4q" userLabel="Next"/>
+                                    <barButtonItem title="▶" id="kxB-6n-a4q" userLabel="Next">
+                                        <connections>
+                                            <action selector="next:" destination="BYZ-38-t0r" id="k90-VD-4a4"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="53Z-Xe-aNF" firstAttribute="top" secondItem="avp-Zi-lMQ" secondAttribute="bottom" constant="8" id="0Oc-Om-wIG"/>
-                            <constraint firstItem="5Rg-RR-Sef" firstAttribute="height" secondItem="53Z-Xe-aNF" secondAttribute="height" multiplier="0.01" priority="100" id="76v-eT-psT"/>
                             <constraint firstItem="avp-Zi-lMQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="DZa-hS-tHe"/>
-                            <constraint firstItem="5Rg-RR-Sef" firstAttribute="height" secondItem="53Z-Xe-aNF" secondAttribute="height" multiplier="0.5" priority="250" id="DdE-ki-GJN"/>
+                            <constraint firstItem="5Rg-RR-Sef" firstAttribute="height" secondItem="53Z-Xe-aNF" secondAttribute="height" multiplier="0.5" priority="750" id="DdE-ki-GJN"/>
                             <constraint firstItem="FYC-jc-HpG" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="PJo-mI-AU4"/>
                             <constraint firstItem="53Z-Xe-aNF" firstAttribute="leading" secondItem="avp-Zi-lMQ" secondAttribute="leading" id="UGc-mY-fXV"/>
                             <constraint firstItem="avp-Zi-lMQ" firstAttribute="top" secondItem="5Rg-RR-Sef" secondAttribute="bottom" constant="8" id="XOp-a9-UJC"/>
@@ -86,9 +93,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="collapseImage" destination="76v-eT-psT" id="5el-OW-mU8"/>
                         <outlet property="imageView" destination="5Rg-RR-Sef" id="Aq7-6i-T89"/>
-                        <outlet property="previous" destination="oqi-EG-lmS" id="f9l-ed-Oeo"/>
                         <outlet property="questionLabel" destination="avp-Zi-lMQ" id="6hQ-C6-TlV"/>
                         <outlet property="tableView" destination="53Z-Xe-aNF" id="FNS-CL-6Eu"/>
                     </connections>
