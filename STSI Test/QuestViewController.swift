@@ -42,6 +42,9 @@ class QuestViewController: UIViewController {
         questionLabel.text = currentQuestion?.question
         
         updateViews()
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140
     }
     
     // Current State
@@ -106,6 +109,7 @@ extension QuestViewController: UITableViewDataSource {
         cell.textLabel?.text = currentQuestion?.answers[indexPath.row]
         return cell
     }
+    
 }
 
 
