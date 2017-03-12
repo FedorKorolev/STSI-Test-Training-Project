@@ -123,10 +123,14 @@ class QuestViewController: UIViewController {
         if let realURL = currentQuestion?.imageURL,
             let checkedUrl = URL(string: realURL) {
             downloadImage(url: checkedUrl)
-            imageView.isHidden = false
+            UIView.animate(withDuration: 0.3, animations: {
+                self.imageView.alpha = 1
+            }, completion: nil)
+            
         } else {
-            imageView.isHidden = true
-        }
+            UIView.animate(withDuration: 0.3, animations: {
+                self.imageView.alpha = 0
+            }, completion: nil)        }
         
         // update label
             questionLabel.pushTransition(duration: 0.3, reverse: animationIsReverse)
