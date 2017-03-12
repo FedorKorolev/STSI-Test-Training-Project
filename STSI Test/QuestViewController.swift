@@ -27,6 +27,9 @@ class QuestViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var checkAnswerButton: UIBarButtonItem!
+    
 
     // Actions Buttons
     @IBAction func next(_ sender: UIBarButtonItem) {
@@ -176,12 +179,16 @@ class QuestViewController: UIViewController {
             cell.accessoryView = nil
         }
         
+        // disable check button
+        checkAnswerButton.isEnabled = false
+        
         // recall selection
         guard questionList[currentQuestionIndex].selectedAnswer != nil else {
             return
         }
         let indexPath = IndexPath(row: (questionList[currentQuestionIndex].selectedAnswer)!, section: 0)
         tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
+        checkAnswerButton.isEnabled = true
         
         // recall checkmark
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
@@ -225,7 +232,7 @@ class QuestViewController: UIViewController {
 extension QuestViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return questionList[currentQuestionIndex].answers.count 
+        return questionList[currentQuestionIndex].answers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -253,7 +260,7 @@ extension QuestViewController: UITableViewDelegate {
                         cell?.accessoryType = .checkmark
                         
         },
-                       completion: nil)
+                       completion: { finished in self.checkAnswerButton.isEnabled = true})
         
     }
     
