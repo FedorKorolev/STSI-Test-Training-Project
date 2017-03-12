@@ -36,6 +36,12 @@ class QuestViewController: UIViewController {
     @IBAction func previous(_ sender: UIBarButtonItem) {
         goToPreviousQuestion()
     }
+    @IBAction func checkAnswer(_ sender: UIBarButtonItem) {
+        if selections[currentQuestionIndex] == questionList[currentQuestionIndex].correctAnswer {
+            print("Correct Answer!")
+        }
+    }
+    
     
     // Gestures
     func setupSwipes() {
@@ -87,6 +93,7 @@ class QuestViewController: UIViewController {
     }
     
     
+    
     // Questions Data
     var questionList = [Question]()
     
@@ -101,9 +108,6 @@ class QuestViewController: UIViewController {
         
         currentQuestionIndex = 0
         currentQuestion = questionList[0]
-        
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 140
     }
     
     // Current State
@@ -151,6 +155,10 @@ class QuestViewController: UIViewController {
         let sectionsToReload = IndexSet(integer: 0)
         tableView.reloadSections(sectionsToReload, with: animationIsReverse ? .right : .left)
         
+        // Auto-Set Row Height
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140
+        
         // recall selection
         let indexPath = IndexPath(row: selections[currentQuestionIndex], section: 0)
         tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
@@ -162,6 +170,7 @@ class QuestViewController: UIViewController {
         
         // recall checkmark
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        
     }
     
     

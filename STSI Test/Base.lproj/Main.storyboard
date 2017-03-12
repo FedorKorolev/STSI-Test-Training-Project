@@ -64,7 +64,11 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="bvQ-7B-Pt7"/>
-                                    <barButtonItem title="Проверить ответ" id="p60-Qo-hlI"/>
+                                    <barButtonItem title="Проверить ответ" id="p60-Qo-hlI">
+                                        <connections>
+                                            <action selector="checkAnswer:" destination="BYZ-38-t0r" id="L1e-tx-bh7"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Sje-JJ-ogS"/>
                                     <barButtonItem title="▶" id="kxB-6n-a4q" userLabel="Next">
                                         <connections>
