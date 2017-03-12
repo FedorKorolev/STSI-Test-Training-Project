@@ -53,7 +53,7 @@ class QuestViewController: UIViewController {
         let correctImageView = UIImageView(image: UIImage(named: "tick"))
         let wrongImageView = UIImageView(image: UIImage(named: "cross"))
         
-        if selections[currentQuestionIndex] == questionList[currentQuestionIndex].correctAnswer {
+        if selections[currentQuestionIndex] == (questionList[currentQuestionIndex].correctAnswer - 1) {
             print("Correct Answer!")
             for cell in tableView.visibleCells {
                 cell.accessoryView = nil
