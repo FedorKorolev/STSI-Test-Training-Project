@@ -10,13 +10,21 @@ import UIKit
 
 struct Question {
     
+    // Constants
     let question: String
     let answers: [String]
-    let correctAnswer: Int
+    private let correctAnswer: Int
     let comments: String
     var imageURL: String?
     
-
+    // Variables
+    var selectedAnswer: Int?
+    var answerIsCorrect: Bool {
+        return selectedAnswer == (correctAnswer - 1)
+    }
+    var answerWasCheked = false
+    
+    // Parse
     init(json: [String : Any]) {
         self.question = json["quest"] as! String
         self.correctAnswer = json["otvet"] as! Int

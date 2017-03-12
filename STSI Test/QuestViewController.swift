@@ -44,29 +44,28 @@ class QuestViewController: UIViewController {
     
     // Answer Check
     func checkAnswer() {
-        guard let selectedIndexPatch = tableView.indexPathForSelectedRow,
-            let selectedCell = tableView.cellForRow(at: selectedIndexPatch) else {
-                print("None selected")
-                return
-        }
         
         let correctImageView = UIImageView(image: UIImage(named: "tick"))
         let wrongImageView = UIImageView(image: UIImage(named: "cross"))
         
-        if selections[currentQuestionIndex] == (questionList[currentQuestionIndex].correctAnswer - 1) {
+        let selectedIndexPatch = tableView.indexPathForSelectedRow
+        let selectedCell = tableView.cellForRow(at: selectedIndexPatch!)
+        
+        if (currentQuestion?.answerIsCorrect)! {
             print("Correct Answer!")
             for cell in tableView.visibleCells {
                 cell.accessoryView = nil
             }
-            selectedCell.accessoryView = correctImageView
+            selectedCell?.accessoryView = correctImageView
         } else {
             print("Wrong Answer")
             for cell in tableView.visibleCells {
                 cell.accessoryView = nil
             }
-            selectedCell.accessoryView = wrongImageView
-            
+            selectedCell?.accessoryView = wrongImageView
         }
+        
+        currentQuestion?.answerWasCheked = true
     }
     
     
@@ -193,15 +192,20 @@ class QuestViewController: UIViewController {
         }
         
         // recall selection
-        let indexPath = IndexPath(row: selections[currentQuestionIndex], section: 0)
+        guard let selectedAnswer = currentQuestion?.selectedAnswer else {
+            return
+        }
+        let indexPath = IndexPath(row: selectedAnswer, section: 0)
         tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
         
         // recall checkmark
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         
-        // check answer
-        checkAnswer()
         
+        // check answer
+        if (currentQuestion?.answerWasCheked)! {
+            checkAnswer()
+        }
     }
     
     
