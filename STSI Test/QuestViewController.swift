@@ -19,6 +19,8 @@ class QuestViewController: UIViewController {
         
         loadData(variant: 0)
         
+        setupSwipes()
+        
     }
     
     // Outlets
@@ -26,8 +28,44 @@ class QuestViewController: UIViewController {
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
 
-    // Actions
+    // Actions Buttons
     @IBAction func next(_ sender: UIBarButtonItem) {
+        goToNextQuestion()
+    }
+    
+    @IBAction func previous(_ sender: UIBarButtonItem) {
+        goToPreviousQuestion()
+    }
+    
+    // Gestures
+    func setupSwipes() {
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
+    }
+    
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                print("Swiped right")
+                goToPreviousQuestion()
+            case UISwipeGestureRecognizerDirection.left:
+                print("Swiped left")
+                goToNextQuestion()
+            default:
+                break
+            }
+        }
+    }
+    
+    
+    // Questions Navigation
+    func goToNextQuestion() {
         animationIsReverse = false
         guard currentQuestionIndex < questionList.count else {
             print("Больше нет вопросов")
@@ -37,7 +75,7 @@ class QuestViewController: UIViewController {
         currentQuestion = questionList[currentQuestionIndex]
     }
     
-    @IBAction func previous(_ sender: UIBarButtonItem) {
+    func goToPreviousQuestion() {
         animationIsReverse = true
         guard currentQuestionIndex > 0 else {
             print("Вернулись на начало")
@@ -53,7 +91,7 @@ class QuestViewController: UIViewController {
     var questionList = [Question]()
     
     
-    //Load Data and Setup tableView
+    // Load Data and Setup tableView
     private func loadData(variant: Int) {
         let loader = QuestionsLoader()
         self.questionList = loader.loadData(variant: variant)
@@ -91,7 +129,7 @@ class QuestViewController: UIViewController {
         }
         
         // update label
-            questionLabel.pushTransition(duration: 0.4, reverse: animationIsReverse)
+            questionLabel.pushTransition(duration: 0.3, reverse: animationIsReverse)
             
             questionLabel.text = currentQuestion?.question
         
@@ -119,6 +157,7 @@ class QuestViewController: UIViewController {
             print(response?.suggestedFilename ?? url.lastPathComponent)
             print("Download Finished")
             DispatchQueue.main.async() { () -> Void in
+                self.imageView.pushTransition(duration: 0.3, reverse: self.animationIsReverse)
                 self.imageView.image = UIImage(data: data)
             }
         }
