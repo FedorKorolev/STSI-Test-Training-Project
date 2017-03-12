@@ -189,9 +189,31 @@ extension QuestViewController: UITableViewDataSource {
 // Handle selection
 extension QuestViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       usingSpringWithDamping: 0.75,
+                       initialSpringVelocity: 1,
+                       options: [UIViewAnimationOptions.allowUserInteraction, UIViewAnimationOptions.beginFromCurrentState],
+                       animations: {
+                        cell?.transform = CGAffineTransform(scaleX: 1.7, y: 1.7)
+                        cell?.transform = CGAffineTransform.identity
+                        cell?.accessoryType = .checkmark
+                        
+        },
+                       completion: nil)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.accessoryType = .none
+    }
+    
+    
 }
 
-// Add text change animation
+// Transition Animation
 extension UIView {
     func pushTransition(duration: CFTimeInterval, reverse: Bool) {
         let animation:CATransition = CATransition()
