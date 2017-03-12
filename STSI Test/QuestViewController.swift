@@ -93,15 +93,14 @@ class QuestViewController: UIViewController {
     
     // Load Data and Setup tableView
     private func loadData(variant: Int) {
+        
         let loader = QuestionsLoader()
         self.questionList = loader.loadData(variant: variant)
         
+        resetSelectionsMemory()
+        
         currentQuestionIndex = 0
         currentQuestion = questionList[0]
-        
-        questionLabel.text = currentQuestion?.question
-        
-        updateViews()
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
@@ -115,6 +114,16 @@ class QuestViewController: UIViewController {
         }
     }
     var animationIsReverse = false
+    
+    // Selections Memory
+    var selections: [Int] = []
+    
+    func resetSelectionsMemory() {
+        for _ in questionList {
+            selections.append(-1)
+        }
+        print(selections)
+    }
     
     // Update Views
     private func updateViews() {
@@ -140,7 +149,19 @@ class QuestViewController: UIViewController {
         
         // reload tableView
         let sectionsToReload = IndexSet(integer: 0)
-        self.tableView.reloadSections(sectionsToReload, with: animationIsReverse ? .right : .left)
+        tableView.reloadSections(sectionsToReload, with: animationIsReverse ? .right : .left)
+        
+        // recall selection
+        let indexPath = IndexPath(row: selections[currentQuestionIndex], section: 0)
+        tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
+        
+        // reset checkmarks
+        for cell in tableView.visibleCells {
+            cell.accessoryType = .none
+        }
+        
+        // recall checkmark
+        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
     }
     
     
@@ -190,6 +211,8 @@ extension QuestViewController: UITableViewDataSource {
 extension QuestViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selections[currentQuestionIndex] = indexPath.row
+        print(selections)
         let cell = tableView.cellForRow(at: indexPath)
         UIView.animate(withDuration: 0.3,
                        delay: 0,
