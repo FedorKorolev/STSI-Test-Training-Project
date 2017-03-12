@@ -64,9 +64,9 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="bvQ-7B-Pt7"/>
-                                    <barButtonItem title="Проверить ответ" id="p60-Qo-hlI">
+                                    <barButtonItem title="Проверить ответ" id="p60-Qo-hlI" userLabel="Cleck Answer">
                                         <connections>
-                                            <action selector="checkAnswer:" destination="BYZ-38-t0r" id="L1e-tx-bh7"/>
+                                            <action selector="checkAnswerPressed:" destination="BYZ-38-t0r" id="iQo-1k-G3w"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Sje-JJ-ogS"/>

@@ -36,9 +36,36 @@ class QuestViewController: UIViewController {
     @IBAction func previous(_ sender: UIBarButtonItem) {
         goToPreviousQuestion()
     }
-    @IBAction func checkAnswer(_ sender: UIBarButtonItem) {
+   
+    @IBAction func checkAnswerPressed(_ sender: UIBarButtonItem) {
+        checkAnswer()
+    }
+    
+    
+    // Answer Check
+    func checkAnswer() {
+        guard let selectedIndexPatch = tableView.indexPathForSelectedRow,
+            let selectedCell = tableView.cellForRow(at: selectedIndexPatch) else {
+                print("None selected")
+                return
+        }
+        
+        let correctImageView = UIImageView(image: UIImage(named: "tick"))
+        let wrongImageView = UIImageView(image: UIImage(named: "cross"))
+        
         if selections[currentQuestionIndex] == questionList[currentQuestionIndex].correctAnswer {
             print("Correct Answer!")
+            for cell in tableView.visibleCells {
+                cell.accessoryView = nil
+            }
+            selectedCell.accessoryView = correctImageView
+        } else {
+            print("Wrong Answer")
+            for cell in tableView.visibleCells {
+                cell.accessoryView = nil
+            }
+            selectedCell.accessoryView = wrongImageView
+            
         }
     }
     
@@ -159,17 +186,21 @@ class QuestViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
         
+        // reset checkmarks
+        for cell in tableView.visibleCells {
+            cell.accessoryType = .none
+            cell.accessoryView = nil
+        }
+        
         // recall selection
         let indexPath = IndexPath(row: selections[currentQuestionIndex], section: 0)
         tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
         
-        // reset checkmarks
-        for cell in tableView.visibleCells {
-            cell.accessoryType = .none
-        }
-        
         // recall checkmark
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        
+        // check answer
+        checkAnswer()
         
     }
     
