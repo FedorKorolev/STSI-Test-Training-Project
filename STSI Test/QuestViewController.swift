@@ -51,7 +51,7 @@ class QuestViewController: UIViewController {
         let selectedIndexPatch = tableView.indexPathForSelectedRow
         let selectedCell = tableView.cellForRow(at: selectedIndexPatch!)
         
-        if (currentQuestion?.answerIsCorrect)! {
+        if questionList[currentQuestionIndex].answerIsCorrect {
             print("Correct Answer!")
             for cell in tableView.visibleCells {
                 cell.accessoryView = nil
@@ -65,7 +65,7 @@ class QuestViewController: UIViewController {
             selectedCell?.accessoryView = wrongImageView
         }
         
-        currentQuestion?.answerWasCheked = true
+        questionList[currentQuestionIndex].answerWasCheked = true
     }
     
     
@@ -104,7 +104,7 @@ class QuestViewController: UIViewController {
             return
         }
         currentQuestionIndex += 1
-        currentQuestion = questionList[currentQuestionIndex]
+        updateViews()
     }
     
     func goToPreviousQuestion() {
@@ -114,7 +114,7 @@ class QuestViewController: UIViewController {
             return
         }
         currentQuestionIndex -= 1
-        currentQuestion = questionList[currentQuestionIndex]
+        updateViews()
         
     }
     
@@ -130,36 +130,21 @@ class QuestViewController: UIViewController {
         let loader = QuestionsLoader()
         self.questionList = loader.loadData(variant: variant)
         
-        resetSelectionsMemory()
-        
         currentQuestionIndex = 0
-        currentQuestion = questionList[0]
+        
+        updateViews()
     }
     
     // Current State
     var currentQuestionIndex = 0
-    var currentQuestion: Question? {
-        didSet {
-            updateViews()
-        }
-    }
+    
     var animationIsReverse = false
-    
-    // Selections Memory
-    var selections: [Int] = []
-    
-    func resetSelectionsMemory() {
-        for _ in questionList {
-            selections.append(-1)
-        }
-        print(selections)
-    }
     
     // Update Views
     private func updateViews() {
         
         // load image
-        if let realURL = currentQuestion?.imageURL,
+        if let realURL = questionList[currentQuestionIndex].imageURL,
             let checkedUrl = URL(string: realURL) {
             downloadImage(url: checkedUrl)
             UIView.animate(withDuration: 0.3, animations: {
@@ -174,7 +159,7 @@ class QuestViewController: UIViewController {
         // update label
             questionLabel.pushTransition(duration: 0.3, reverse: animationIsReverse)
             
-            questionLabel.text = currentQuestion?.question
+            questionLabel.text = questionList[currentQuestionIndex].question
         
         
         // reload tableView
@@ -192,10 +177,10 @@ class QuestViewController: UIViewController {
         }
         
         // recall selection
-        guard let selectedAnswer = currentQuestion?.selectedAnswer else {
+        guard questionList[currentQuestionIndex].selectedAnswer != nil else {
             return
         }
-        let indexPath = IndexPath(row: selectedAnswer, section: 0)
+        let indexPath = IndexPath(row: (questionList[currentQuestionIndex].selectedAnswer)!, section: 0)
         tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
         
         // recall checkmark
@@ -203,7 +188,7 @@ class QuestViewController: UIViewController {
         
         
         // check answer
-        if (currentQuestion?.answerWasCheked)! {
+        if questionList[currentQuestionIndex].answerWasCheked {
             checkAnswer()
         }
     }
@@ -240,12 +225,12 @@ class QuestViewController: UIViewController {
 extension QuestViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentQuestion?.answers.count ?? 0
+        return questionList[currentQuestionIndex].answers.count 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = currentQuestion?.answers[indexPath.row]
+        cell.textLabel?.text = questionList[currentQuestionIndex].answers[indexPath.row]
         return cell
     }
     
@@ -255,8 +240,7 @@ extension QuestViewController: UITableViewDataSource {
 extension QuestViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selections[currentQuestionIndex] = indexPath.row
-        print(selections)
+        questionList[currentQuestionIndex].selectedAnswer = indexPath.row
         let cell = tableView.cellForRow(at: indexPath)
         UIView.animate(withDuration: 0.3,
                        delay: 0,
