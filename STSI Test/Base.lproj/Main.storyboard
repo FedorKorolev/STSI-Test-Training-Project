@@ -148,6 +148,7 @@
                     <connections>
                         <outlet property="checkAnswerButton" destination="p60-Qo-hlI" id="oHm-4c-sOk"/>
                         <outlet property="imageView" destination="5Rg-RR-Sef" id="Aq7-6i-T89"/>
+                        <outlet property="previousButton" destination="oqi-EG-lmS" id="CBb-hl-xbS"/>
                         <outlet property="questionLabel" destination="avp-Zi-lMQ" id="6hQ-C6-TlV"/>
                         <outlet property="tableView" destination="53Z-Xe-aNF" id="FNS-CL-6Eu"/>
                     </connections>

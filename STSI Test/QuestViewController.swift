@@ -30,6 +30,8 @@ class QuestViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var checkAnswerButton: UIBarButtonItem!
+    @IBOutlet weak var previousButton: UIBarButtonItem!
+    
     
 
     // Actions Buttons
@@ -113,8 +115,8 @@ class QuestViewController: UIViewController {
     
     func goToPreviousQuestion() {
         animationIsReverse = true
-        guard currentQuestionIndex >= 0 else {
-            print("Вернулись на начало")
+        guard currentQuestionIndex > 0 else {
+            print("Это был первый вопрос")
             return
         }
         currentQuestionIndex -= 1
@@ -185,6 +187,13 @@ class QuestViewController: UIViewController {
         
         // disable check button
         checkAnswerButton.isEnabled = false
+        
+        // disable or enable previous button
+        if currentQuestionIndex == 0 {
+            previousButton.isEnabled = false
+        } else {
+            previousButton.isEnabled = true
+        }
         
         // if answer was selected, recall selection
         guard questionList[currentQuestionIndex].selectedAnswer != nil else {
