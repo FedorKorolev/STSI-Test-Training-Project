@@ -235,7 +235,7 @@ class QuestViewController: UIViewController {
             previousButton.isEnabled = true
         }
         
-        // if answers were selected, recall selections
+        // if answers were selected, recall selections marks
         guard questionList[currentQuestionIndex].selectedAnswers.count > 0 else {
             return
         }
@@ -247,9 +247,10 @@ class QuestViewController: UIViewController {
             let indexPath = IndexPath(row: selection, section: 0)
             if selection == (questionList[currentQuestionIndex].correctAnswer - 1) {
                tableView.cellForRow(at: indexPath)?.accessoryView = correctImageView
-            }
-            if selection != (questionList[currentQuestionIndex].correctAnswer - 1) {
+                print("Recall correct mark for \(selection)")
+            } else {
                 tableView.cellForRow(at: indexPath)?.accessoryView = wrongImageView
+                print("Recall wrong mark for \(selection)")
             }
             
         }
