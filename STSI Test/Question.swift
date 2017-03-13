@@ -18,11 +18,14 @@ struct Question {
     var imageURL: String?
     
     // Variables
-    var selectedAnswer: Int?
-    var answerIsCorrect: Bool {
-        return selectedAnswer == (correctAnswer - 1)
+    var selectedAnswers: [Int] = []
+    var lastSelectedAnswerIsCorrect: Bool {
+        return selectedAnswers.last == (correctAnswer - 1)
     }
-    var answerWasCheked = false
+    var noMistakes: Bool {
+        return (selectedAnswers.count == 1) && lastSelectedAnswerIsCorrect
+    }
+    
     
     // Parse
     init(json: [String : Any]) {

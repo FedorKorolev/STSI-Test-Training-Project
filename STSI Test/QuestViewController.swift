@@ -29,7 +29,6 @@ class QuestViewController: UIViewController {
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var checkAnswerButton: UIBarButtonItem!
     @IBOutlet weak var previousButton: UIBarButtonItem!
     
     
@@ -42,10 +41,6 @@ class QuestViewController: UIViewController {
     @IBAction func previous(_ sender: UIBarButtonItem) {
         goToPreviousQuestion()
     }
-   
-    @IBAction func checkAnswerPressed(_ sender: UIBarButtonItem) {
-        checkAnswer()
-    }
     
     
     // Answer Check
@@ -57,23 +52,39 @@ class QuestViewController: UIViewController {
         let selectedIndexPatch = tableView.indexPathForSelectedRow
         let selectedCell = tableView.cellForRow(at: selectedIndexPatch!)
         
-        if questionList[currentQuestionIndex].answerIsCorrect {
+        selectedCell?.accessoryView?.alpha = 0
+        
+        if questionList[currentQuestionIndex].lastSelectedAnswerIsCorrect {
             print("Correct Answer")
-            for cell in tableView.visibleCells {
-                cell.accessoryView = nil
-            }
             selectedCell?.accessoryView = correctImageView
+            animateSelectionFor(cell: selectedCell, correct: true)
+            
+            
         } else {
             print("Wrong Answer")
-            for cell in tableView.visibleCells {
-                cell.accessoryView = nil
-            }
             selectedCell?.accessoryView = wrongImageView
         }
-        
-        questionList[currentQuestionIndex].answerWasCheked = true
+
     }
     
+    func animateSelectionFor(cell: UITableViewCell?, correct: Bool) {
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       usingSpringWithDamping: 0.75,
+                       initialSpringVelocity: 1,
+                       options: [UIViewAnimationOptions.allowUserInteraction, UIViewAnimationOptions.beginFromCurrentState],
+                       animations: {
+                        cell?.transform = CGAffineTransform(scaleX: 1.7, y: 1.7)
+                        cell?.transform = CGAffineTransform.identity
+                        cell?.accessoryView?.alpha = 1
+                        
+        },
+                       completion: { finished in
+                        if correct {
+                            self.goToNextQuestion()
+                        }
+        })
+    }
     
     // Gestures
     func setupSwipes() {
@@ -131,7 +142,7 @@ class QuestViewController: UIViewController {
         // calculate Final Score
         var score = 0
         for question in questionList {
-            if question.answerIsCorrect {
+            if question.noMistakes {
                 score += 1
             }
         }
@@ -214,12 +225,8 @@ class QuestViewController: UIViewController {
         
         // reset checkmarks
         for cell in tableView.visibleCells {
-            cell.accessoryType = .none
             cell.accessoryView = nil
         }
-        
-        // disable check button
-        checkAnswerButton.isEnabled = false
         
         // disable or enable previous button
         if currentQuestionIndex == 0 {
@@ -228,22 +235,16 @@ class QuestViewController: UIViewController {
             previousButton.isEnabled = true
         }
         
-        // if answer was selected, recall selection
-        guard questionList[currentQuestionIndex].selectedAnswer != nil else {
-            return
-        }
-        let indexPath = IndexPath(row: (questionList[currentQuestionIndex].selectedAnswer)!, section: 0)
-        tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
-        checkAnswerButton.isEnabled = true
+//        // if answer was selected, recall selection
+//        guard questionList[currentQuestionIndex].selectedAnswer != nil else {
+//            return
+//        }
+//        let indexPath = IndexPath(row: (questionList[currentQuestionIndex].selectedAnswer)!, section: 0)
+//        tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
+//        
+//        // recall checkmark
+//        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         
-        // recall checkmark
-        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        
-        
-        // check answer
-        if questionList[currentQuestionIndex].answerWasCheked {
-            checkAnswer()
-        }
     }
     
     
@@ -293,25 +294,8 @@ extension QuestViewController: UITableViewDataSource {
 extension QuestViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        questionList[currentQuestionIndex].selectedAnswer = indexPath.row
-        let cell = tableView.cellForRow(at: indexPath)
-        UIView.animate(withDuration: 0.3,
-                       delay: 0,
-                       usingSpringWithDamping: 0.75,
-                       initialSpringVelocity: 1,
-                       options: [UIViewAnimationOptions.allowUserInteraction, UIViewAnimationOptions.beginFromCurrentState],
-                       animations: {
-                        cell?.transform = CGAffineTransform(scaleX: 1.7, y: 1.7)
-                        cell?.transform = CGAffineTransform.identity
-                        cell?.accessoryType = .checkmark
-                        
-        },
-                       completion: { finished in self.checkAnswerButton.isEnabled = true})
-        
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        questionList[currentQuestionIndex].selectedAnswers.append(indexPath.row)
+        checkAnswer()
     }
     
     
