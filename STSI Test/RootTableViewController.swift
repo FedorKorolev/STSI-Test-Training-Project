@@ -55,5 +55,7 @@ class RootTableViewController: UITableViewController {
             destVC.variant = selectedVariant
         }
     }
+    
+    @IBAction func unwindAction(unwindSegue: UIStoryboardSegue){}
 
 }

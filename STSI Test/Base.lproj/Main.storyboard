@@ -171,7 +171,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sRe-o8-ZLN">
-                                <rect key="frame" x="51" y="232" width="219" height="106"/>
+                                <rect key="frame" x="51" y="231" width="219" height="106"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Правильных ответов:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z93-tj-SNt">
                                         <rect key="frame" x="0.0" y="0.0" width="219" height="26.5"/>
@@ -188,6 +188,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1d8-RB-wfr">
                                         <rect key="frame" x="34.5" y="76" width="150" height="30"/>
                                         <state key="normal" title="Пройти ещё вариант"/>
+                                        <connections>
+                                            <segue destination="2Jq-lk-H7N" kind="unwind" unwindAction="unwindActionWithUnwindSegue:" id="7YJ-7n-PQG"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -203,6 +206,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rKM-Tr-W6o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="2Jq-lk-H7N" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1230" y="132.04225352112675"/>
         </scene>
