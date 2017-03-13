@@ -10,6 +10,8 @@ import UIKit
 
 class QuestViewController: UIViewController {
 
+    var variant = 0
+    
     // Initialisation
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,10 +19,9 @@ class QuestViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        loadData(variant: 0)
+        loadData(variant: variant)
         
         setupSwipes()
-        
     }
     
     // Outlets
@@ -55,7 +56,7 @@ class QuestViewController: UIViewController {
         let selectedCell = tableView.cellForRow(at: selectedIndexPatch!)
         
         if questionList[currentQuestionIndex].answerIsCorrect {
-            print("Correct Answer!")
+            print("Correct Answer")
             for cell in tableView.visibleCells {
                 cell.accessoryView = nil
             }
@@ -182,7 +183,7 @@ class QuestViewController: UIViewController {
         // disable check button
         checkAnswerButton.isEnabled = false
         
-        // recall selection
+        // if answer was selected, recall selection
         guard questionList[currentQuestionIndex].selectedAnswer != nil else {
             return
         }

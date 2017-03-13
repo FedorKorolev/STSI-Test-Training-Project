@@ -25,4 +25,21 @@ class QuestionsLoader {
         
         return questions
     }
+    
+    func loadVariantsList() -> [Int] {
+        let pathToFile = Bundle.main.path(forResource: "quiestions1-10", ofType: "json")!
+        let data = try! Data(contentsOf: URL(fileURLWithPath: pathToFile))
+        let json = try! JSONSerialization.jsonObject(with: data, options: [])
+        let biletsJson = json as! [String : Any]
+        let bilets = biletsJson["bilets"] as! [Any]
+        
+        var variantsList: [Int] = []
+        var i = 0
+        for _ in bilets {
+            i += 1
+            variantsList.append(i)
+        }
+        
+        return variantsList
+    }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Khj-Dh-ldN">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,6 +11,54 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Тест ПДД-->
+        <scene sceneID="ZaA-2b-LeV">
+            <objects>
+                <tableViewController id="Xbc-Db-kpb" customClass="RootTableViewController" customModule="STSI_Test" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="1wb-UZ-q77">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="YcH-s3-MYp">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YcH-s3-MYp" id="96D-o4-u3U">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Xbc-Db-kpb" id="X9G-qk-4cS"/>
+                            <outlet property="delegate" destination="Xbc-Db-kpb" id="bvB-RQ-reI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Тест ПДД" id="iSt-gq-GmS"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="Start Test" id="XK1-qz-jvU"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5tt-yt-OJt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-499" y="135"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="v4R-wK-vpB">
+            <objects>
+                <navigationController id="Khj-Dh-ldN" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dQ0-N3-7PR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Xbc-Db-kpb" kind="relationship" relationship="rootViewController" id="ai8-Kp-wSA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BUh-Wp-qvu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1511" y="135"/>
+        </scene>
         <!--Quest View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -24,10 +72,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Rg-RR-Sef">
-                                <rect key="frame" x="16" y="28" width="288" height="153"/>
+                                <rect key="frame" x="16" y="64" width="288" height="141"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="53Z-Xe-aNF">
-                                <rect key="frame" x="16" y="218" width="288" height="306"/>
+                                <rect key="frame" x="16" y="242" width="288" height="282"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="xPc-lt-NYQ" style="IBUITableViewCellStyleDefault" id="K9x-79-kHA">
@@ -50,7 +98,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="avp-Zi-lMQ">
-                                <rect key="frame" x="16" y="189" width="288" height="21"/>
+                                <rect key="frame" x="16" y="213" width="288" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -88,8 +136,8 @@
                             <constraint firstItem="53Z-Xe-aNF" firstAttribute="leading" secondItem="avp-Zi-lMQ" secondAttribute="leading" id="UGc-mY-fXV"/>
                             <constraint firstItem="avp-Zi-lMQ" firstAttribute="top" secondItem="5Rg-RR-Sef" secondAttribute="bottom" constant="8" id="XOp-a9-UJC"/>
                             <constraint firstItem="avp-Zi-lMQ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Z1w-eQ-gGb"/>
-                            <constraint firstItem="5Rg-RR-Sef" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="aV7-3w-2zY"/>
                             <constraint firstItem="5Rg-RR-Sef" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="bhz-ML-fnM"/>
+                            <constraint firstItem="5Rg-RR-Sef" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="hFO-bw-mIf"/>
                             <constraint firstItem="FYC-jc-HpG" firstAttribute="centerX" secondItem="53Z-Xe-aNF" secondAttribute="centerX" id="jug-RR-8SP"/>
                             <constraint firstItem="5Rg-RR-Sef" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="seL-OV-yKg"/>
                             <constraint firstItem="FYC-jc-HpG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="wAk-WH-rgE"/>
@@ -106,7 +154,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138.75" y="135.21126760563379"/>
+            <point key="canvasLocation" x="391.875" y="133.09859154929578"/>
         </scene>
     </scenes>
 </document>

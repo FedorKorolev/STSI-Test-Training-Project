@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75803BF31E76FB7D00CA6D91 /* RootTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75803BF21E76FB7D00CA6D91 /* RootTableViewController.swift */; };
 		75D7A5BF1E746B68009422C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7A5BE1E746B68009422C4 /* AppDelegate.swift */; };
 		75D7A5C41E746B68009422C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75D7A5C21E746B68009422C4 /* Main.storyboard */; };
 		75D7A5C61E746B68009422C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75D7A5C51E746B68009422C4 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		75803BF21E76FB7D00CA6D91 /* RootTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTableViewController.swift; sourceTree = "<group>"; };
 		75D7A5BB1E746B68009422C4 /* STSI Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "STSI Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D7A5BE1E746B68009422C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75D7A5C31E746B68009422C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				75D7A5C21E746B68009422C4 /* Main.storyboard */,
+				75803BF21E76FB7D00CA6D91 /* RootTableViewController.swift */,
 				75D7A5DA1E748142009422C4 /* QuestViewController.swift */,
 				75D7A5D41E746DB6009422C4 /* Models */,
 				75D7A5BE1E746B68009422C4 /* AppDelegate.swift */,
@@ -157,6 +160,7 @@
 			files = (
 				75D7A5D31E746DA2009422C4 /* Question.swift in Sources */,
 				75D7A5DB1E748142009422C4 /* QuestViewController.swift in Sources */,
+				75803BF31E76FB7D00CA6D91 /* RootTableViewController.swift in Sources */,
 				75D7A5BF1E746B68009422C4 /* AppDelegate.swift in Sources */,
 				75D7A5D11E746C12009422C4 /* QuestionsLoader.swift in Sources */,
 			);
