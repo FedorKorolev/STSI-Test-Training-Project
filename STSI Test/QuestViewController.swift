@@ -107,6 +107,7 @@ class QuestViewController: UIViewController {
         animationIsReverse = false
         guard currentQuestionIndex < questionList.count - 1 else {
             print("Больше нет вопросов")
+            finishTest()
             return
         }
         currentQuestionIndex += 1
@@ -124,7 +125,20 @@ class QuestViewController: UIViewController {
         
     }
     
-    
+    // Finish Test
+    func finishTest() {
+        let alert = UIAlertController(title: "Завершить тест?", message: nil, preferredStyle: .alert)
+        let finishButton = UIAlertAction(title: "Завершить", style: .default) { action in
+//            performSegue(withIdentifier: <#T##String#>, sender: <#T##Any?#>)
+            print("Завершение теста")
+        }
+        let canсelButton = UIAlertAction(title: "Отмена", style: .cancel) { action in
+            print("Завершение теста отменено")
+        }
+        alert.addAction(finishButton)
+        alert.addAction(canсelButton)
+        present(alert, animated: true, completion: nil)
+    }
     
     // Questions Data
     var questionList = [Question]()
