@@ -103,7 +103,7 @@ class QuestViewController: UIViewController {
     // Questions Navigation
     func goToNextQuestion() {
         animationIsReverse = false
-        guard currentQuestionIndex < questionList.count else {
+        guard currentQuestionIndex < questionList.count - 1 else {
             print("Больше нет вопросов")
             return
         }
@@ -113,7 +113,7 @@ class QuestViewController: UIViewController {
     
     func goToPreviousQuestion() {
         animationIsReverse = true
-        guard currentQuestionIndex > 0 else {
+        guard currentQuestionIndex >= 0 else {
             print("Вернулись на начало")
             return
         }
@@ -159,6 +159,9 @@ class QuestViewController: UIViewController {
             UIView.animate(withDuration: 0.3, animations: {
                 self.imageView.alpha = 0
             }, completion: nil)        }
+        
+        // update controller title
+        self.title = "Вопрос \(currentQuestionIndex + 1) из \(questionList.count)"
         
         // update label
             questionLabel.pushTransition(duration: 0.3, reverse: animationIsReverse)
