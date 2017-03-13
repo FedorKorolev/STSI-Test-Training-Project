@@ -235,15 +235,24 @@ class QuestViewController: UIViewController {
             previousButton.isEnabled = true
         }
         
-//        // if answer was selected, recall selection
-//        guard questionList[currentQuestionIndex].selectedAnswer != nil else {
-//            return
-//        }
-//        let indexPath = IndexPath(row: (questionList[currentQuestionIndex].selectedAnswer)!, section: 0)
-//        tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
-//        
-//        // recall checkmark
-//        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        // if answers were selected, recall selections
+        guard questionList[currentQuestionIndex].selectedAnswers.count > 0 else {
+            return
+        }
+        
+        let correctImageView = UIImageView(image: UIImage(named: "tick"))
+        let wrongImageView = UIImageView(image: UIImage(named: "cross"))
+        
+        for selection in questionList[currentQuestionIndex].selectedAnswers {
+            let indexPath = IndexPath(row: selection, section: 0)
+            if selection == (questionList[currentQuestionIndex].correctAnswer - 1) {
+               tableView.cellForRow(at: indexPath)?.accessoryView = correctImageView
+            }
+            if selection != (questionList[currentQuestionIndex].correctAnswer - 1) {
+                tableView.cellForRow(at: indexPath)?.accessoryView = wrongImageView
+            }
+            
+        }
         
     }
     

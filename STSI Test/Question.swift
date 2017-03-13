@@ -13,7 +13,7 @@ struct Question {
     // Constants
     let question: String
     let answers: [String]
-    private let correctAnswer: Int
+    let correctAnswer: Int
     let comments: String
     var imageURL: String?
     
