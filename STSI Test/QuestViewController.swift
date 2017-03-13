@@ -127,9 +127,20 @@ class QuestViewController: UIViewController {
     
     // Finish Test
     func finishTest() {
+        
+        // calculate Final Score
+        var score = 0
+        for question in questionList {
+            if question.answerIsCorrect {
+                score += 1
+            }
+        }
+        print(score)
+        
+        // fnish conformation
         let alert = UIAlertController(title: "Завершить тест?", message: nil, preferredStyle: .alert)
         let finishButton = UIAlertAction(title: "Завершить", style: .default) { action in
-//            performSegue(withIdentifier: <#T##String#>, sender: <#T##Any?#>)
+            self.performSegue(withIdentifier: "Show Result", sender: score)
             print("Завершение теста")
         }
         let canсelButton = UIAlertAction(title: "Отмена", style: .cancel) { action in
@@ -138,6 +149,14 @@ class QuestViewController: UIViewController {
         alert.addAction(finishButton)
         alert.addAction(canсelButton)
         present(alert, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destVC = segue.destination as? ResultViewController,
+            let score = sender as? Int {
+            destVC.score = score
+        }
+
     }
     
     // Questions Data
