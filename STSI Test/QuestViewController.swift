@@ -9,7 +9,7 @@
 import UIKit
 
 class QuestViewController: UIViewController {
-
+    
     var variant = 0
     
     // Initialisation
@@ -18,6 +18,10 @@ class QuestViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        // Auto-Set Row Height
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140
         
         loadData(variant: variant)
         
@@ -32,7 +36,7 @@ class QuestViewController: UIViewController {
     @IBOutlet weak var previousButton: UIBarButtonItem!
     
     
-
+    
     // Actions Buttons
     @IBAction func next(_ sender: UIBarButtonItem) {
         goToNextQuestion()
@@ -46,28 +50,31 @@ class QuestViewController: UIViewController {
     // Answer Check
     func checkAnswer() {
         
-        let correctImageView = UIImageView(image: UIImage(named: "tick"))
-        let wrongImageView = UIImageView(image: UIImage(named: "cross"))
-        
         let selectedIndexPatch = tableView.indexPathForSelectedRow
         let selectedCell = tableView.cellForRow(at: selectedIndexPatch!)
         
         selectedCell?.accessoryView?.alpha = 0
         
-        if questionList[currentQuestionIndex].lastSelectedAnswerIsCorrect {
-            print("Correct Answer")
-            selectedCell?.accessoryView = correctImageView
-            animateSelectionFor(cell: selectedCell, correct: true)
-            
-            
-        } else {
-            print("Wrong Answer")
-            selectedCell?.accessoryView = wrongImageView
+        guard questionList[currentQuestionIndex].answers.count > 0  else {
+            selectedCell?.accessoryView?.alpha = 1
+            (selectedCell?.accessoryView as? UIImageView)?.image = nil
+            return
         }
-
+        animateSelectionFor(cell: selectedCell,
+                            correct: questionList[currentQuestionIndex].lastSelectedAnswerIsCorrect)
     }
     
     func animateSelectionFor(cell: UITableViewCell?, correct: Bool) {
+        
+        
+        
+        cell?.accessoryView?.alpha = 0
+        (cell?.accessoryView as? UIImageView)?.image = correct ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "cross")
+        
+        //эта штука заставит картинку в ячейке увеличиться в размере. иначе она может иметь нулевой размер
+        cell?.accessoryView?.sizeToFit()
+
+        
         UIView.animate(withDuration: 0.3,
                        delay: 0,
                        usingSpringWithDamping: 0.75,
@@ -77,7 +84,6 @@ class QuestViewController: UIViewController {
                         cell?.transform = CGAffineTransform(scaleX: 1.7, y: 1.7)
                         cell?.transform = CGAffineTransform.identity
                         cell?.accessoryView?.alpha = 1
-                        
         },
                        completion: { finished in
                         if correct {
@@ -167,7 +173,7 @@ class QuestViewController: UIViewController {
             let score = sender as? Int {
             destVC.score = score
         }
-
+        
     }
     
     // Questions Data
@@ -210,23 +216,14 @@ class QuestViewController: UIViewController {
         self.title = "Вопрос \(currentQuestionIndex + 1) из \(questionList.count)"
         
         // update label
-            questionLabel.pushTransition(duration: 0.3, reverse: animationIsReverse)
-            
-            questionLabel.text = questionList[currentQuestionIndex].question
+        questionLabel.pushTransition(duration: 0.3, reverse: animationIsReverse)
+        
+        questionLabel.text = questionList[currentQuestionIndex].question
         
         
         // reload tableView
         let sectionsToReload = IndexSet(integer: 0)
         tableView.reloadSections(sectionsToReload, with: animationIsReverse ? .right : .left)
-        
-        // Auto-Set Row Height
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 140
-        
-        // reset checkmarks
-        for cell in tableView.visibleCells {
-            cell.accessoryView = nil
-        }
         
         // disable or enable previous button
         if currentQuestionIndex == 0 {
@@ -239,27 +236,7 @@ class QuestViewController: UIViewController {
         guard questionList[currentQuestionIndex].selectedAnswers.count > 0 else {
             return
         }
-        
-        let correctImageView = UIImageView(image: UIImage(named: "tick"))
-        let wrongImageView = UIImageView(image: UIImage(named: "cross"))
-        
-        for selection in questionList[currentQuestionIndex].selectedAnswers {
-            let indexPath = IndexPath(row: selection, section: 0)
-            if selection == (questionList[currentQuestionIndex].correctAnswer - 1) {
-               tableView.cellForRow(at: indexPath)?.accessoryView = correctImageView
-                print("Recall correct mark for \(selection)")
-            } else {
-                tableView.cellForRow(at: indexPath)?.accessoryView = wrongImageView
-                print("Recall wrong mark for \(selection)")
-            }
-            
-        }
-        
     }
-    
-    
-    
-    
     
     // Image Download
     func getDataFromUrl(url: URL, completion: @escaping (_ data: Data?, _  response: URLResponse?, _ error: Error?) -> Void) {
@@ -295,6 +272,22 @@ extension QuestViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = questionList[currentQuestionIndex].answers[indexPath.row]
+        
+        if cell.accessoryView == nil {
+            cell.accessoryView = UIImageView()
+        }
+        cell.accessoryView?.alpha = 1
+        var imageName = ""
+        
+        if questionList[currentQuestionIndex].selectedAnswers.contains(indexPath.row){
+            
+             imageName = questionList[currentQuestionIndex].correctAnswer - 1 == indexPath.row ?
+                "tick" : "cross"
+        }
+        
+        (cell.accessoryView as? UIImageView)?.image = UIImage(named: imageName)
+        cell.accessoryView?.sizeToFit()
+        
         return cell
     }
     
@@ -305,10 +298,9 @@ extension QuestViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         questionList[currentQuestionIndex].selectedAnswers.append(indexPath.row)
+        
         checkAnswer()
     }
-    
-    
 }
 
 // Transition Animation
